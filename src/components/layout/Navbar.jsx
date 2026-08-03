@@ -10,38 +10,41 @@ function Navbar() {
   const { language, toggleLanguage, t } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
+    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">  
+      <nav className="mx-auto flex h-24 max-w-7xl items-center justify-between px-8">
         {/* Logo */}
         <Logo />
 
         {/* Desktop Navigation */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden lg:flex items-center gap-8">  
           {navigation.map((item) => (
             <li key={item.path}>
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `font-medium transition-colors ${
+                  `font-medium text-sm tracking-wide transition-all duration-300 relative group ${
                     isActive
-                      ? "text-amber-600"
-                      : "text-gray-700 hover:text-amber-600 hover:scale-105"
+                      ? "text-[#D4A04E]"
+                      : "text-[#2B2B2B] hover:text-[#D4A04E]"
                   }`
                 }
               >
-                {t[item.key]}
+                {t.nav?.[item.key] || item.name?.[language] || item.name?.en}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#D4A04E] to-transparent transition-all duration-300 ${
+                  document.location.pathname === item.path ? "w-full" : "w-0 group-hover:w-full"
+                }`}></span>
               </NavLink>
             </li>
           ))}
         </ul>
 
         {/* Right Side */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
 
           {/* Language Toggle */}
           <button
             onClick={toggleLanguage}
-            className="rounded-lg border border-amber-600 px-5 py-2 text-sm font-semibold text-amber-600 transition hover:bg-amber-600 hover:text-white"
+            className="rounded-full border-2 border-[#D4A04E] px-6 py-2 text-xs font-semibold text-[#D4A04E] transition-all duration-300 hover:bg-[#D4A04E] hover:text-white shadow-sm hover:shadow-md"
           >
             {language === "en" ? "EN | ಕನ್ನಡ" : "ಕನ್ನಡ | EN"}
           </button>
@@ -50,7 +53,7 @@ function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="text-2xl md:hidden"
+            className="text-2xl text-[#2B2B2B] hover:text-[#D4A04E] transition-colors md:hidden"
           >
             ☰
           </button>

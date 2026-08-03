@@ -1,8 +1,18 @@
+﻿import Hero from "../../components/sections/hero";
+import Practice from "../../components/sections/Practice";
+import SelectedWorks from "../../components/sections/SelectedWorks";
+import Timeline from "../../components/sections/Timeline";
+import Testimonials from "../../components/sections/Testimonials";
+
 function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
+    <>
+      <Hero />
+      <Practice />
+      <SelectedWorks />
+      <Timeline />
+      <Testimonials />
+    </>
   );
 }
 
