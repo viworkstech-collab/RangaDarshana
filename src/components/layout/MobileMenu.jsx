@@ -1,37 +1,45 @@
 import { NavLink } from "react-router-dom";
 import navigation from "../../data/navigation";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function MobileMenu({ isOpen, onClose }) {
+  const { language, toggleLanguage, t } = useLanguage();
+
   if (!isOpen) return null;
 
   return (
-    <div className="md:hidden bg-white border-t shadow-lg">
-      <div className="flex justify-end p-4">
+    <div className="fixed inset-0 z-50 bg-white p-6 md:hidden">
+      <div className="flex justify-end">
         <button
           onClick={onClose}
-          className="text-2xl font-bold"
+          className="text-3xl text-gray-700"
         >
-          ✕
+          ×
         </button>
       </div>
 
-      <ul className="flex flex-col gap-5 px-6 pb-6">
-        {navigation.map((item) => (
-          <li key={item.path}>
-            <NavLink
-              to={item.path}
-              onClick={onClose}
-              className="text-lg font-medium text-gray-700 hover:text-amber-600"
-            >
-              {item.name}
-            </NavLink>
-          </li>
-        ))}
+      <nav className="mt-10">
+        <ul className="space-y-6">
+          {navigation.map((item) => (
+            <li key={item.path}>
+              <NavLink
+                to={item.path}
+                onClick={onClose}
+                className="text-lg text-gray-700 hover:text-amber-600"
+              >
+                {t[item.key]}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
 
-        <button className="mt-4 rounded border border-amber-600 px-4 py-2 text-amber-600">
-          EN | ಕನ್ನಡ
+        <button
+          onClick={toggleLanguage}
+          className="mt-8 w-full rounded-md border border-amber-600 py-2 text-amber-600 hover:bg-amber-600 hover:text-white transition"
+        >
+          {language === "en" ? "EN | ಕನ್ನಡ" : "ಕನ್ನಡ | EN"}
         </button>
-      </ul>
+      </nav>
     </div>
   );
 }
