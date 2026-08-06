@@ -1,8 +1,11 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import play1 from "../../assets/images/plays/play1.jpg";
 import play2 from "../../assets/images/plays/play2.jpg";
 import play3 from "../../assets/images/plays/play3.jpg";
+import { useLanguage } from "../../i18n/LanguageContext";
 
+function SelectedWorks() {
+  const { t } = useLanguage();
 const plays = [
   {
     id: 1,
@@ -21,7 +24,6 @@ const plays = [
   },
 ];
 
-function SelectedWorks() {
   return (
     <section className="bg-[#FAF8F5] py-24">
 
@@ -46,34 +48,34 @@ function SelectedWorks() {
 
           </div>
 
-          <Link to="/gallery" className="uppercase tracking-[6px] text-[#7B2D26] hover:text-[#C59D5F] transition">
+          <Link
+            to="/plays"
+            className="hidden lg:flex uppercase tracking-[6px] text-[#7B2D26] hover:text-[#C89A53]"
+          >
             View All →
           </Link>
 
         </div>
 
-        {/* Grid */}
+        {/* Cards */}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
 
           {plays.map((play) => (
-            <div key={play.id} className="group">
 
-              <div className="relative mb-6 overflow-hidden rounded-2xl h-80 bg-gray-300">
+            <div
+              key={play.id}
+              className="group overflow-hidden rounded-3xl cursor-pointer"
+            >
 
-                <img
-                  src={play.image}
-                  alt={play.title}
-                  className="object-cover w-full h-full group-hover:scale-105 transition duration-500"
-                />
-
-              </div>
-
-              <h3 className="font-serif text-3xl text-[#2B2B2B]">
-                {play.title}
-              </h3>
+              <img
+                src={play.image}
+                alt={play.title}
+                className="w-full h-[620px] object-cover transition duration-500 group-hover:scale-110"
+              />
 
             </div>
+
           ))}
 
         </div>

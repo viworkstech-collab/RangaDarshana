@@ -1,6 +1,8 @@
-﻿import { Link } from "react-router-dom";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { Link } from "react-router-dom";
 
-function Practice() {
+function OurPractice() {
+  const { t } = useLanguage();
   return (
     <section className="bg-[#FAF8F5] py-24">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20">
@@ -48,4 +50,4 @@ function Practice() {
   );
 }
 
-export default Practice;
+export default OurPractice;

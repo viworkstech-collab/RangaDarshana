@@ -1,4 +1,8 @@
-﻿const timeline = [
+import { useLanguage } from "../../i18n/LanguageContext";
+
+function Timeline() {
+  const { t } = useLanguage();
+const timeline = [
   {
     year: "1987",
     title: "Founded in Bengaluru",
@@ -31,7 +35,6 @@
   },
 ];
 
-function Timeline() {
   return (
     <section className="bg-[#FAF8F5] py-24">
       <div className="max-w-6xl mx-auto px-6">
@@ -49,35 +52,36 @@ function Timeline() {
 
         <div className="relative">
 
-          <div className="absolute top-0 left-7 w-[2px] h-full bg-[#D4A04E]" />
+          <div className="absolute left-10 top-0 bottom-0 w-[1px] bg-[#D8C8AE]" />
 
-          <div className="space-y-12">
+          {timeline.map((item) => (
+            <div
+              key={item.year}
+              className="grid md:grid-cols-[120px_1fr] gap-12 relative mb-20"
+            >
+              <div className="relative">
 
-            {timeline.map((item, idx) => (
-              <div key={idx} className="relative pl-20">
+                <div className="absolute left-[34px] top-3 w-4 h-4 rounded-full bg-[#C89A53]" />
 
-                <div className="absolute left-0 top-1 w-16 h-16 bg-white rounded-full border-4 border-[#D4A04E] flex items-center justify-center">
-                  <span className="font-serif text-[#D4A04E] text-xl font-bold">
-                    {item.year}
-                  </span>
-                </div>
-
-                <div className="pt-2">
-
-                  <h3 className="font-serif text-2xl text-[#2B2B2B]">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-gray-600 mt-2 max-w-2xl">
-                    {item.desc}
-                  </p>
-
-                </div>
+                <h3 className="pl-16 text-3xl font-serif text-[#7B2D26]">
+                  {item.year}
+                </h3>
 
               </div>
-            ))}
 
-          </div>
+              <div>
+
+                <h3 className="font-serif text-3xl mb-3 text-[#2B2B2B]">
+                  {item.title}
+                </h3>
+
+                <p className="text-gray-600 text-lg leading-8">
+                  {item.desc}
+                </p>
+
+              </div>
+            </div>
+          ))}
 
         </div>
 

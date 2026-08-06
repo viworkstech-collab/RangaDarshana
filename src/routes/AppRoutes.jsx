@@ -17,7 +17,8 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
+
         <Route path="about" element={<About />} />
         <Route path="founders" element={<Founders />} />
         <Route path="plays" element={<Plays />} />

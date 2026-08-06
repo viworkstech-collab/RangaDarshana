@@ -1,7 +1,9 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import heroImage from "../../assets/images/hero-bg.jpg";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 function Hero() {
+  const { t } = useLanguage();
   return (
     <section
       className="relative h-screen flex items-center bg-cover bg-center"

@@ -11,32 +11,44 @@ function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">  
-      <nav className="mx-auto flex h-24 max-w-7xl items-center justify-between px-8">
+      <nav className="mx-auto flex h-20 items-center justify-between px-8">
         {/* Logo */}
         <Logo />
 
         {/* Desktop Navigation */}
-        <ul className="hidden lg:flex items-center gap-8">  
+        <div className="flex-1 flex justify-center ml-8">
+        <ul 
+        id="desktop-nav"
+        className="hidden min-[1200px]:flex flex-1 items-center justify-center gap-8 ml-40">  
           {navigation.map((item) => (
             <li key={item.path}>
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  `font-medium text-sm tracking-wide transition-all duration-300 relative group ${
-                    isActive
-                      ? "text-[#D4A04E]"
-                      : "text-[#2B2B2B] hover:text-[#D4A04E]"
-                  }`
-                }
-              >
-                {t.nav?.[item.key] || item.name?.[language] || item.name?.en}
-                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#D4A04E] to-transparent transition-all duration-300 ${
-                  document.location.pathname === item.path ? "w-full" : "w-0 group-hover:w-full"
-                }`}></span>
+              <NavLink to={item.path}>
+                {({ isActive }) => (
+    <div className="relative group font-medium text-sm tracking-wide">
+      <span
+        className={
+          isActive
+            ? "text-[#D4A04E]"
+            : "text-[#2B2B2B] group-hover:text-[#D4A04E]"
+        }
+      >
+        {t.nav?.[item.key] || item.name?.[language] || item.name?.en}
+      </span>
+
+      <span
+        className={`absolute -bottom-1 left-0 h-0.5 bg-[#D4A04E] transition-all duration-300 ${
+          isActive ? "w-full" : "w-0 group-hover:w-full"
+        }`}
+      />
+    </div>
+  )}
+
+            
               </NavLink>
             </li>
           ))}
         </ul>
+        </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-6">
@@ -52,8 +64,9 @@ function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
+          id="mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(true)}
-            className="text-2xl text-[#2B2B2B] hover:text-[#D4A04E] transition-colors md:hidden"
+            className="min-[1200px]:hidden text-2xl text-[#2B2B2B] hover:text-[#D4A04E] transition-colors"
           >
             ☰
           </button>
