@@ -1,63 +1,67 @@
+import jalagara from "../assets/images/videos/jalagara.jpg";
+import thayiyeDevaru from "../assets/images/videos/thayiye-devaru.jpg";
+import swapnasiddhi from "../assets/images/videos/swapnasiddhi.jpg";
+import mahabelaku from "../assets/images/videos/mahabelaku.jpg";
+
 const videos = [
   {
     id: 1,
     title: {
-      en: "Yakshagana Performance",
-      kn: "ಯಕ್ಷಗಾನ ಪ್ರದರ್ಶನ",
+      en: "Jalagara Rangadarshana",
+      kn: "ಜಲಗಾರ ರಂಗದರ್ಶನ",
     },
-    thumbnail:
-      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=600",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+
     category: {
-      en: "Traditional",
-      kn: "ಸಾಂಪ್ರದಾಯಿಕ",
+      en: "Featured Performance",
+      kn: "ವಿಶೇಷ ಪ್ರದರ್ಶನ",
     },
+    image: jalagara,
+    url: "https://www.youtube.com/watch?v=46QOib0tq80",
   },
 
   {
     id: 2,
     title: {
-      en: "Classical Theatre",
-      kn: "ಶಾಸ್ತ್ರೀಯ ನಾಟಕ",
+      en: "Thayiye Devaru",
+      kn: "ತಾಯಿಯೇ ದೇವರು",
     },
-    thumbnail:
-      "https://images.unsplash.com/photo-1503095396549-807759245b35?w=600",
-    videoUrl: "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
+
     category: {
-      en: "Drama",
-      kn: "ನಾಟಕ",
+      en: "Stage Play",
+      kn: "ವೇದಿಕೆ ನಾಟಕ",
     },
+    image: thayiyeDevaru,
+    url: "https://www.youtube.com/watch?v=J-Fk1MBJOtQ",
   },
 
   {
     id: 3,
     title: {
-      en: "Cultural Festival",
-      kn: "ಸಾಂಸ್ಕೃತಿಕ ಉತ್ಸವ",
+      en: "Swapnasiddhi",
+      kn: "ಸ್ವಪ್ನಸಿದ್ಧಿ",
     },
-    thumbnail:
-      "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=600",
-    videoUrl: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+
     category: {
-      en: "Festival",
-      kn: "ಉತ್ಸವ",
+      en: "Drama",
+      kn: "ನಾಟಕ",
     },
+    image: swapnasiddhi,
+    url: "https://www.youtube.com/watch?v=mD4CEQ2_nnE",
   },
 
   {
-    id: 4,
-    title: {
-      en: "Stage Performance",
-      kn: "ವೇದಿಕೆ ಪ್ರದರ್ಶನ",
-    },
-    thumbnail:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600",
-    videoUrl: "https://www.youtube.com/watch?v=ScMzIvxBSi4",
-    category: {
-      en: "Performance",
-      kn: "ಪ್ರದರ್ಶನ",
-    },
+  id: 4,
+  title: {
+    en: "Mahabelaku",
+    kn: "ಮಹಾಬೆಳಕು",
   },
+  category: {
+    en: "Theatre Performance",
+    kn: "ರಂಗಭೂಮಿ ಪ್ರದರ್ಶನ",
+  },
+  image: mahabelaku,
+  url: "https://www.youtube.com/watch?v=GBAfuwKb6d8",
+},
 ];
 
 export default videos;
