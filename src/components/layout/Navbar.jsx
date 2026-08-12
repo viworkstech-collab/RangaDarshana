@@ -16,7 +16,7 @@ function Navbar() {
         <Logo />
 
         {/* Desktop Navigation */}
-        <div className="flex-1 flex justify-center ml-8">
+        <div className="flex-1 flex justify-center mr-8">
         <ul 
         id="desktop-nav"
         className="hidden min-[1200px]:flex flex-1 items-center justify-center gap-8 ml-40">  
