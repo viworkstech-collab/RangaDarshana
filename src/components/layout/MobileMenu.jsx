@@ -8,11 +8,11 @@ function MobileMenu({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-white p-6 md:hidden">
+    <div className="fixed inset-0 z-100 bg-white p-6">
       <div className="flex justify-end">
         <button
           onClick={onClose}
-          className="text-3xl text-gray-700"
+          className="text-3xl text-gray-700 hover:text-[#D4A04E]"
         >
           ×
         </button>
@@ -25,13 +25,22 @@ function MobileMenu({ isOpen, onClose }) {
               <NavLink
                 to={item.path}
                 onClick={onClose}
-                className="text-lg text-gray-700 hover:text-amber-600"
+                                className={({ isActive }) =>
+                  `block text-lg font-medium transition ${
+                    isActive
+                      ? "text-[#D4A04E]"
+                      : "text-gray-700 hover:text-[#D4A04E]"
+                  }`
+                }
               >
-                {t[item.key]}
+                {t.nav?.[item.key] ||
+                  item.name?.[language] ||
+                  item.name?.en}
               </NavLink>
             </li>
           ))}
         </ul>
+
 
         <button
           onClick={toggleLanguage}

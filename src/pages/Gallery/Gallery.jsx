@@ -1,36 +1,161 @@
+import { useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext";
+import gallery from "../../data/gallery";
 
 function Gallery() {
   const { language } = useLanguage();
 
+  const [activeCategory, setActiveCategory] = useState("stage");
+
   const categories = [
-    { title: "Productions", en: "Behind the scenes and on-stage moments", kn: "ನಾಟಕ ತೆರೆ" },
-    { title: "Performances", en: "Live theatre experiences and audience engagement", kn: "ಪ್ರದರ್ಶನಗಳು" },
-    { title: "Events", en: "Workshops, rehearsals, and community gatherings", kn: "ಕಾರ್ಯಕ್ರಮಗಳು" },
-    { title: "Rehearsals", en: "The art of preparation and artistic collaboration", kn: "ಅಭ್ಯಾಸ" },
-    { title: "Awards", en: "Recognition and accolades throughout our history", kn: "ಪುರಸ್ಕಾರಗಳು" },
-    { title: "Community", en: "Moments with audiences and fellow artists", kn: "ಸಮುದಾಯ" }
+    {
+      id: "stage",
+      en: "STAGE PERFORMANCES",
+      kn: "ವೇದಿಕೆ ಪ್ರದರ್ಶನಗಳು",
+    },
+    {
+      id: "behind",
+      en: "BEHIND THE SCENES",
+      kn: "ತೆರೆ ಹಿಂದಿನ ಕ್ಷಣಗಳು",
+    },
+    {
+      id: "rehearsals",
+      en: "REHEARSALS",
+      kn: "ಅಭ್ಯಾಸಗಳು",
+    },
+    {
+      id: "workshops",
+      en: "WORKSHOPS",
+      kn: "ಕಾರ್ಯಾಗಾರಗಳು",
+    },
+    {
+      id: "events",
+      en: "EVENTS",
+      kn: "ಕಾರ್ಯಕ್ರಮಗಳು",
+    },
   ];
 
+  const images = gallery[activeCategory];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FAF8F5] to-white">
-      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#2B2B2B] mb-6">
-          {language === "en" ? "Gallery" : "ದೃಶ್ಯ ಸಂಗ್ರಹ"}
-        </h1>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {categories.map((category, idx) => (
-            <div key={idx} className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all cursor-pointer group">
-              <div className="h-40 bg-gradient-to-b from-[#D4A04E] to-[#8C6239] group-hover:from-[#B8860B] group-hover:to-[#6B5137] transition-colors" />
-              <div className="p-6">
-                <h3 className="text-2xl font-serif font-bold text-[#2B2B2B] mb-3">{category.title}</h3>
-                <p className="text-[#5A4C47]">{language === "en" ? category.en : category.kn}</p>
+    <main className="bg-[#FAF8F5] min-h-screen">
+
+      {/* ================= HERO ================= */}
+
+      <section className="border-b border-[#E5DED5]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+
+          <div className="min-h-[560px] flex items-center">
+
+            <div className="max-w-4xl">
+
+              {/* Label */}
+              <div className="flex items-center gap-4 mb-10">
+                <div className="w-14 h-[1px] bg-[#C89A53]" />
+
+                <p className="uppercase tracking-[6px] text-[#8C6239] text-sm">
+                  {language === "en" ? "GALLERY" : "ಗ್ಯಾಲರಿ"}
+                </p>
               </div>
+
+              {/* Heading */}
+              <h1 className="font-serif text-6xl md:text-7xl lg:text-[76px] leading-tight text-[#2B2B2B] mb-8">
+                {language === "en"
+                  ? "Moments, held still."
+                  : "ಹೆಪ್ಪುಗಟ್ಟಿದ ಕ್ಷಣಗಳು."}
+              </h1>
+
+              {/* Description */}
+              <p className="text-[#5A4C47] text-xl md:text-2xl leading-9 max-w-4xl">
+                {language === "en"
+                  ? "A curated selection from three decades of stagecraft — on stage, in rehearsal and behind the curtain."
+                  : "ಮೂರು ದಶಕಗಳ ರಂಗಭೂಮಿ ಕಲೆಯ ಆಯ್ದ ಕ್ಷಣಗಳು — ವೇದಿಕೆಯಲ್ಲಿ, ಅಭ್ಯಾಸದಲ್ಲಿ ಮತ್ತು ತೆರೆ ಹಿಂದಿನಿಂದ."}
+              </p>
+
             </div>
-          ))}
+
+          </div>
+
         </div>
       </section>
-    </div>
+
+
+      {/* ================= GALLERY ================= */}
+
+      <section className="py-20">
+
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+
+          {/* Category Buttons */}
+
+          <div className="flex flex-wrap gap-3 mb-14">
+
+            {categories.map((category) => {
+
+              const isActive = activeCategory === category.id;
+
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`
+                    px-7 py-3
+                    rounded-full
+                    border
+                    text-sm
+                    tracking-[4px]
+                    transition-all
+                    duration-300
+                    ${
+                      isActive
+                        ? "bg-[#7B211E] text-white border-[#7B211E]"
+                        : "bg-transparent text-[#6B625C] border-[#DDD5CC] hover:border-[#7B211E] hover:text-[#7B211E]"
+                    }
+                  `}
+                >
+                  {language === "en"
+                    ? category.en
+                    : category.kn}
+                </button>
+              );
+
+            })}
+
+          </div>
+
+
+          {/* Images */}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            {images.map((image, index) => (
+
+              <div
+                key={`${activeCategory}-${index}`}
+                className="overflow-hidden rounded-[28px] bg-black"
+              >
+
+                <img
+                  src={image}
+                  alt={
+                    language === "en"
+                      ? "Ranga Darshana theatre moment"
+                      : "ರಂಗದರ್ಶನ ರಂಗಭೂಮಿ ಕ್ಷಣ"
+                  }
+                  className="w-full h-85 object-cover transition-transform duration-500 hover:scale-105"
+                />
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
   );
 }
 

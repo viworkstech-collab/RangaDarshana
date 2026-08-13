@@ -1,36 +1,131 @@
 ﻿import { useLanguage } from "../../i18n/LanguageContext";
+import plays from "../../data/plays";
 
 function Plays() {
-  const { language } = useLanguage();
-
-  const plays = [
-    { title: "Neeruli", en: "A folk tragedy about love and loss", kn: "ಪ್ರೇಮ ಮತ್ತು ನಷ್ಟದ ನೃತ್ಯ", year: "1992" },
-    { title: "Kaadina Haadu", en: "A musical exploration of Kannada poetry", kn: "ಕನ್ನಡ ಕವಿತೆಯ ಸಂಗೀತ", year: "2001" },
-    { title: "Yakshagana", en: "A contemporary interpretation of classical form", kn: "ಕ್ಲಾಸಿಕಲ ರೂಪದ ಅರ್ಹನಾದ ಪರಿವರ್ತನೆ", year: "2008" },
-    { title: "Kanoora", en: "A political drama set in colonial times", kn: "ಬ್ರಿಟಿಷ ಯುಗದ ರಾಜನೈತಿಕ ನಾಟಕ", year: "2015" },
-    { title: "Mohan Manjari", en: "A romantic comedy of errors", kn: "ಆತ್ಮೀಯ ಹಾಸ್ಯ", year: "2019" },
-    { title: "Aagathakshana", en: "An experimental piece on time and memory", kn: "ಸಮಯ ಮತ್ತು ಸ್ಮೃತಿಯ ಆಲೋಚನೆ", year: "2023" }
-  ];
+  const { language, t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FAF8F5] to-white">
+    <div className="min-h-screen bg-[#FAF8F5]">
+
+      {/* Page Header */}
       <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#2B2B2B] mb-6">
-          {language === "en" ? "Our Plays" : "ನಮ್ಮ ನಾಟಕಗಳು"}
-        </h1>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-          {plays.map((play, idx) => (
-            <div key={idx} className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all hover:scale-105">
-              <div className="h-32 bg-gradient-to-b from-[#D4A04E] to-[#B8860B]" />
-              <div className="p-6">
-                <p className="text-[#D4A04E] text-sm font-semibold mb-2">{play.year}</p>
-                <h3 className="text-2xl font-serif font-bold text-[#2B2B2B] mb-3">{play.title}</h3>
-                <p className="text-[#5A4C47]">{language === "en" ? play.en : play.kn}</p>
-              </div>
-            </div>
-          ))}
+
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-14 h-[1px] bg-[#C89A53]" />
+
+          <p className="uppercase tracking-[6px] text-[#8C6239] text-sm">
+            {t.plays.label}
+          </p>
         </div>
+
+        <h1 className="text-5xl md:text-6xl font-serif text-[#2B2B2B] mb-8">
+          {t.plays.title}
+        </h1>
+
+        <p className="text-lg md:text-xl text-[#5A4C47] leading-8 max-w-4xl">
+          {t.plays.description}
+        </p>
+
       </section>
+
+
+      {/* Plays */}
+      <section className="px-6 md:px-12 pb-24">
+
+        <div className="max-w-7xl mx-auto">
+
+          {plays.map((play, index) => (
+
+            <article
+              key={play.id}
+              className={`grid lg:grid-cols-2 gap-16 items-center mb-28 ${
+                index % 2 !== 0 ? "lg:flex lg:flex-row-reverse" : ""
+              }`}
+            >
+
+              {/* Image */}
+              <div className="w-full">
+
+                {play.image ? (
+                  <img
+                    src={play.image}
+                    alt={play.title[language]}
+                    className="w-full h-[650px] object-cover rounded-[28px]"
+                  />
+                ) : (
+                  <div className="w-full h-[650px] rounded-[28px] bg-[#2B2B2B] flex items-center justify-center">
+                    <span className="text-[#D4A04E] font-serif text-3xl">
+                      {play.title[language]}
+                    </span>
+                  </div>
+                )}
+
+              </div>
+
+
+              {/* Content */}
+              <div>
+
+                {/* Year / Category / Duration */}
+                <p className="uppercase tracking-[6px] text-[#8C6239] text-sm mb-8">
+                  {play.year}
+                  <span className="mx-3 text-[#C89A53]">•</span>
+                  {play.category[language]}
+                  <span className="mx-3 text-[#C89A53]">•</span>
+                  {play.duration}
+                </p>
+
+
+                {/* Title */}
+                <h2 className="font-serif text-5xl text-[#7B2D26] mb-4">
+                  {play.title.en}
+                </h2>
+
+                {/* Kannada Title */}
+                <h3 className="font-serif text-3xl text-[#9A4037] mb-8">
+                  {play.title.kn}
+                </h3>
+
+
+                {/* Description */}
+                <p className="text-[#5A4C47] text-xl leading-9 mb-8">
+                  {play.description[language]}
+                </p>
+
+
+                {/* Credits */}
+                <div className="flex flex-wrap gap-x-8 gap-y-3 text-[#5A4C47] mb-10">
+
+                  <span>
+                    Director · {play.director[language]}
+                  </span>
+
+                  <span>
+                    Writer · {play.writer[language]}
+                  </span>
+
+                  <span>
+                    Music · {play.music[language]}
+                  </span>
+
+                </div>
+
+
+                {/* Read More */}
+                <button className="uppercase tracking-[5px] text-[#7B2D26] hover:text-[#C89A53] transition">
+                  {t.plays.readMore} →
+                </button>
+
+              </div>
+
+            </article>
+
+          ))}
+
+        </div>
+
+      </section>
+
     </div>
   );
 }

@@ -38,6 +38,13 @@ export const translations = {
       label: "LEGACY",
       title: "Thirty-six years, one stage at a time.",
     },
+    plays: {
+  label: "REPERTORY",
+  title: "Plays & Productions.",
+  description:
+    "A living catalogue of the work — spanning folk drama, contemporary tragedy, historical portraiture and musical theatre.",
+  readMore: "READ MORE",
+  },
 
   testimonial: {
 
@@ -60,6 +67,7 @@ export const translations = {
   testimonial3Author: "SANGEETA ISVARAN",
   testimonial3Role: "CULTURAL HISTORIAN",
 },
+
   },
 
   kn: {
@@ -104,6 +112,13 @@ export const translations = {
     testimonial: {
       label: "ಜನರ ಮಾತು",
     },
+    plays: {
+  label: "ನಾಟಕಗಳ ಸಂಗ್ರಹ",
+  title: "ನಾಟಕಗಳು ಮತ್ತು ಪ್ರದರ್ಶನಗಳು.",
+  description:
+    "ಜನಪದ ನಾಟಕ, ಸಮಕಾಲೀನ ದುರಂತ, ಐತಿಹಾಸಿಕ ಚಿತ್ರಣ ಮತ್ತು ಸಂಗೀತ ನಾಟಕಗಳನ್ನು ಒಳಗೊಂಡ ನಮ್ಮ ರಂಗಕೃತಿಗಳ ಜೀವಂತ ಸಂಗ್ರಹ.",
+  readMore: "ಇನ್ನಷ್ಟು ಓದಿ",
+  },
 
   testimonial: {
     

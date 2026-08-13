@@ -1,3 +1,4 @@
+import ScrollToTop from "../components/layout/ScrollToTop";
 import { Routes, Route } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout";
@@ -15,6 +16,9 @@ import NotFound from "../pages/NotFound/NotFound";
 
 function AppRoutes() {
   return (
+    <>
+      <ScrollToTop />
+
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
@@ -31,6 +35,7 @@ function AppRoutes() {
 
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </>
   );
 }
 

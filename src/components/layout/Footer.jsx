@@ -6,6 +6,7 @@ function Footer() {
 
   return (
     <footer className="bg-[#F8F5EF] border-t border-[#E7DDD2]">
+
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-8 lg:px-12 py-20">
 
@@ -15,7 +16,6 @@ function Footer() {
           <div>
 
             <div className="flex items-center gap-4 mb-8">
-
               <img
                 src="/logo.png"
                 alt="Logo"
@@ -25,21 +25,18 @@ function Footer() {
               <h2 className="text-4xl font-serif text-[#7B2D26]">
                 Ranga Darshana
               </h2>
-
             </div>
 
             <p className="text-gray-700 leading-9 text-lg max-w-md">
               {language === "en"
                 ? "A Kannada theatre ensemble devoted to original stagecraft, folk revival and contemporary drama. Since 1987, we have staged over 240 productions across Karnataka and beyond."
-                : "1987ರಿಂದ ಕರ್ನಾಟಕದಾದ್ಯಂತ ಹಾಗೂ ಹೊರಗಡೆಯೂ 240ಕ್ಕೂ ಹೆಚ್ಚು ನಾಟಕಗಳನ್ನು ಪ್ರದರ್ಶಿಸಿರುವ ರಂಗ ದರ್ಶನವು ಮೂಲ ರಂಗಭೂಮಿ, ಜನಪದ ಪುನರುಜ್ಜೀವನ ಮತ್ತು ಸಮಕಾಲೀನ ನಾಟಕಗಳಿಗೆ ಸಮರ್ಪಿತವಾಗಿದೆ."}
+                : "1987ರಿಂದ ಕರ್ನಾಟಕದಾದ್ಯಂತ ಹಾಗೂ ಹೊರಗಡೆಯೂ 240ಕ್ಕೂ ಹೆಚ್ಚು ನಾಟಕಗಳನ್ನು ಪ್ರದರ್ಶಿಸಿರುವ ರಂಗ ದರ್ಶನವು ಮೂಲ ರಂಗಭೂಮಿ, ಜನಪದ ಪುನರುಜ್ಜೀವನ ಮತ್ತು ಸಮಕಾಲೀನ ನಾಟಕಗಳಿಗೆ ಸಮರ್ಪಿತವಾಗಿದೆ."
+              }
             </p>
 
             {/* Social Icons */}
-
             <div className="flex gap-5 mt-10">
-
               {["IG", "FB", "YT", "WA", "EM"].map((item) => (
-
                 <a
                   key={item}
                   href="#"
@@ -47,19 +44,16 @@ function Footer() {
                 >
                   {item}
                 </a>
-
               ))}
-
             </div>
 
           </div>
 
           {/* Middle */}
-
           <div>
 
             <h4 className="uppercase tracking-[8px] text-sm text-[#8B6B58] mb-10">
-              Explore
+              {language === "en" ? "EXPLORE" : "ಅನ್ವೇಷಿಸಿ"}
             </h4>
 
             <div className="space-y-5 text-lg">
@@ -88,19 +82,26 @@ function Footer() {
 
           </div>
 
-          {/* Right */}
-
+          {/* Right - Contact */}
           <div>
 
             <h4 className="uppercase tracking-[8px] text-sm text-[#8B6B58] mb-10">
-              Contact
+              {language === "en" ? "CONTACT" : "ಸಂಪರ್ಕ"}
             </h4>
 
             <div className="space-y-5 text-lg text-gray-700">
 
-              <p>Ravindra Kalakshetra Road</p>
+              <p>
+                {language === "en"
+                  ? "Ravindra Kalakshetra Road"
+                  : "ರವೀಂದ್ರ ಕಲಾಕ್ಷೇತ್ರ ರಸ್ತೆ"}
+              </p>
 
-              <p>Bengaluru 560002, Karnataka</p>
+              <p>
+                {language === "en"
+                  ? "Bengaluru 560002, Karnataka"
+                  : "ಬೆಂಗಳೂರು 560002, ಕರ್ನಾಟಕ"}
+              </p>
 
               <p>+91 98450 12345</p>
 
@@ -115,22 +116,36 @@ function Footer() {
       </div>
 
       {/* Bottom */}
-
       <div className="border-t border-[#E7DDD2]">
 
         <div className="max-w-7xl mx-auto px-8 lg:px-12 py-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
 
           <p>
-            © 2026 Ranga Darshana. All rights reserved.
+            {language === "en"
+              ? "© 2026 Ranga Darshana. All rights reserved."
+              : "© 2026 Ranga Darshana. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ."
+            }
           </p>
 
           <div className="flex gap-5 mt-4 md:mt-0">
 
-            <a href="#">Designed with care</a>
+            <a href="#">
+              {language === "en"
+                ? "Designed with care"
+                : "ಕಾಳಜಿಯಿಂದ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ"}
+            </a>
 
-            <a href="#">Privacy</a>
+            <a href="#">
+              {language === "en"
+                ? "Privacy"
+                : "ಗೌಪ್ಯತೆ"}
+            </a>
 
-            <a href="#">Terms</a>
+            <a href="#">
+              {language === "en"
+                ? "Terms"
+                : "ನಿಯಮಗಳು"}
+            </a>
 
           </div>
 
