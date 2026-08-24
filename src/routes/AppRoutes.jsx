@@ -13,6 +13,7 @@ import Achievements from "../pages/Achievements/Achievements";
 import Events from "../pages/Events/Events";
 import Contact from "../pages/Contact/Contact";
 import NotFound from "../pages/NotFound/NotFound";
+import AdminEvents from "../pages/Admin/Events/AdminEvents";
 
 function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ function AppRoutes() {
         <Route path="achievements" element={<Achievements />} />
         <Route path="events" element={<Events />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="admin/events" element={<AdminEvents />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
