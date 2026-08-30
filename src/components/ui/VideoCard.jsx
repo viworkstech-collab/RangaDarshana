@@ -1,5 +1,5 @@
 import { Play, ExternalLink } from "lucide-react";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 function VideoCard({ video }) {
   const { language } = useLanguage();

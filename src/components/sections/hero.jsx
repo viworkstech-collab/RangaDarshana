@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import heroImage from "../../assets/images/hero-bg.jpg";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 function Hero() {
   const { language } = useLanguage();

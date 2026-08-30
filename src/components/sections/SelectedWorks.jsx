@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import play1 from "../../assets/images/plays/play1.jpg";
 import play2 from "../../assets/images/plays/play2.jpg";
 import play3 from "../../assets/images/plays/play3.jpg";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 function SelectedWorks() {
   const { language } = useLanguage();

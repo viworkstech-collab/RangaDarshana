@@ -1,6 +1,5 @@
 import { MapPin, Building2, CalendarDays, Clock3, Ticket } from "lucide-react";
-import { useContext } from "react";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 const EventCard = ({ event }) => {
   const { language } = useLanguage();

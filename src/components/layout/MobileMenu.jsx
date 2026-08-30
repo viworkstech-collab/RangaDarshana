@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import navigation from "../../data/navigation";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 function MobileMenu({ isOpen, onClose }) {
   const { language, toggleLanguage, t } = useLanguage();

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 import Logo from "../ui/Logo";
 import navigation from "../../data/navigation";
 import MobileMenu from "./MobileMenu";

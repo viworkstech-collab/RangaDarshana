@@ -44,29 +44,38 @@ const AdminEvents = () => {
   const [editingEventId, setEditingEventId] = useState(null);
 
   const [formData, setFormData] = useState(initialFormData);
-
   useEffect(() => {
-    loadEvents();
-  }, []);
+  let ignore = false;
 
-  const loadEvents = async () => {
+  const fetchEvents = async () => {
     try {
-      setLoading(true);
-      setError("");
-
       const data = await getEvents();
-      setEvents(data);
+
+      if (!ignore) {
+        setEvents(data);
+        setError("");
+      }
     } catch (err) {
       console.error(err);
 
-      setError(
-        "Unable to load events. Please make sure the backend server is running."
-      );
+      if (!ignore) {
+        setError(
+          "Unable to load events. Please make sure the backend server is running."
+        );
+      }
     } finally {
-      setLoading(false);
+      if (!ignore) {
+        setLoading(false);
+      }
     }
   };
 
+  fetchEvents();
+
+  return () => {
+    ignore = true;
+  };
+}, []);
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 

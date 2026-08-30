@@ -1,6 +1,6 @@
 import videos from "../../data/videos";
 import VideoCard from "../ui/VideoCard";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 
 function Videos() {

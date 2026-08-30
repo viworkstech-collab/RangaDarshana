@@ -1,8 +1,8 @@
 ﻿import founders from "../../data/founders";
-import { useLanguage } from "../../i18n/LanguageContext";
+import { useLanguage } from "../../i18n/useLanguage";
 
 function Founders() {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
 
   return (
     <main className="bg-[#F8F5F0]">
