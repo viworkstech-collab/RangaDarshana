@@ -13,30 +13,40 @@ import Achievements from "../pages/Achievements/Achievements";
 import Events from "../pages/Events/Events";
 import Contact from "../pages/Contact/Contact";
 import NotFound from "../pages/NotFound/NotFound";
+
 import AdminEvents from "../pages/Admin/Events/AdminEvents";
+import AdminLogin from "../pages/Admin/Login/AdminLogin";
+import ProtectedRoute from "./ProtectedRoute";
+import ForgotPassword from "../pages/Admin/ForgotPassword/ForgotPassword";
 
 function AppRoutes() {
   return (
     <>
       <ScrollToTop />
 
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
 
-        <Route path="about" element={<About />} />
-        <Route path="founders" element={<Founders />} />
-        <Route path="plays" element={<Plays />} />
-        <Route path="gallery" element={<Gallery />} />
-        <Route path="videos" element={<Videos />} />
-        <Route path="achievements" element={<Achievements />} />
-        <Route path="events" element={<Events />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="admin/events" element={<AdminEvents />} />
-      </Route>
+          <Route path="about" element={<About />} />
+          <Route path="founders" element={<Founders />} />
+          <Route path="plays" element={<Plays />} />
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="videos" element={<Videos />} />
+          <Route path="achievements" element={<Achievements />} />
+          <Route path="events" element={<Events />} />
+          <Route path="contact" element={<Contact />} />
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+          <Route path="admin/login" element={<AdminLogin />} />
+          <Route path="admin/forgot-password" element={<ForgotPassword />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="admin/events" element={<AdminEvents />} />
+          </Route>
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }

@@ -5,15 +5,18 @@ import {
   updateEvent,
   deleteEvent,
 } from "../controllers/eventController.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// Public route
 router.get("/", getEvents);
 
-router.post("/", createEvent);
+// Protected admin routes
+router.post("/", authMiddleware, createEvent);
 
-router.put("/:id", updateEvent);
+router.put("/:id", authMiddleware, updateEvent);
 
-router.delete("/:id", deleteEvent);
+router.delete("/:id", authMiddleware, deleteEvent);
 
 export default router;
