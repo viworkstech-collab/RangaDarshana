@@ -124,6 +124,20 @@ function Footer() {
               >
                 {language === "en" ? "Videos" : "ವೀಡಿಯೊಗಳು"}
               </Link>
+
+              <Link
+    to="/achievements"
+    className="block hover:text-[#7B2D26]"
+  >
+    {language === "en" ? "Achievements" : "ಸಾಧನೆಗಳು"}
+  </Link>
+
+  <Link
+    to="/events"
+    className="block hover:text-[#7B2D26]"
+  >
+    {language === "en" ? "Events" : "ಕಾರ್ಯಕ್ರಮಗಳು"}
+  </Link>
             </div>
           </div>
 
