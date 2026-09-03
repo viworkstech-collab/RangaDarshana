@@ -73,6 +73,10 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      validate: {
+        validator: (value) => /^https?:\/\/.+/i.test(value),
+        message: "Booking URL must be a valid HTTP or HTTPS URL",
+      },
     },
 
     isVisible: {

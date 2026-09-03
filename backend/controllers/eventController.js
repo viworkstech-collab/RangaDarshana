@@ -1,20 +1,19 @@
 import Event from "../models/Event.js";
 
-// Get all events
 export const getEvents = async (req, res) => {
   try {
     const events = await Event.find().sort({ date: 1 });
 
     res.status(200).json(events);
   } catch (error) {
+    console.error("Get events error:", error);
+
     res.status(500).json({
       message: "Failed to fetch events",
-      error: error.message,
     });
   }
 };
 
-// Create a new event
 export const createEvent = async (req, res) => {
   try {
     const {
@@ -46,14 +45,20 @@ export const createEvent = async (req, res) => {
       event,
     });
   } catch (error) {
+    console.error("Create event error:", error);
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Invalid event data",
+      });
+    }
+
     res.status(500).json({
       message: "Failed to create event",
-      error: error.message,
     });
   }
 };
 
-// Update an existing event
 export const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -79,8 +84,8 @@ export const updateEvent = async (req, res) => {
         venue,
         date,
         time,
-        image,
         bookingUrl,
+        image,
         isVisible,
       },
       {
@@ -100,14 +105,26 @@ export const updateEvent = async (req, res) => {
       event,
     });
   } catch (error) {
+    console.error("Update event error:", error);
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Invalid event data",
+      });
+    }
+
+    if (error.name === "CastError") {
+      return res.status(400).json({
+        message: "Invalid event ID",
+      });
+    }
+
     res.status(500).json({
       message: "Failed to update event",
-      error: error.message,
     });
   }
 };
 
-// Delete an event
 export const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -124,9 +141,16 @@ export const deleteEvent = async (req, res) => {
       message: "Event deleted successfully",
     });
   } catch (error) {
+    console.error("Delete event error:", error);
+
+    if (error.name === "CastError") {
+      return res.status(400).json({
+        message: "Invalid event ID",
+      });
+    }
+
     res.status(500).json({
       message: "Failed to delete event",
-      error: error.message,
     });
   }
 };
