@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CalendarDays,
   Clock3,
   MapPin,
   Building2,
-  Link,
+  Link as LinkIcon,
   Plus,
   Trash2,
   Eye,
   EyeOff,
   Pencil,
   X,
+  LogOut,
 } from "lucide-react";
 
 import {
@@ -37,6 +39,8 @@ const initialFormData = {
 };
 
 const AdminEvents = () => {
+  const navigate = useNavigate();
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -44,38 +48,56 @@ const AdminEvents = () => {
   const [editingEventId, setEditingEventId] = useState(null);
 
   const [formData, setFormData] = useState(initialFormData);
+
+  // =========================
+  // FETCH EVENTS
+  // =========================
   useEffect(() => {
-  let ignore = false;
+    let ignore = false;
 
-  const fetchEvents = async () => {
-    try {
-      const data = await getEvents();
+    const fetchEvents = async () => {
+      try {
+        const data = await getEvents();
 
-      if (!ignore) {
-        setEvents(data);
-        setError("");
-      }
-    } catch (err) {
-      console.error(err);
+        if (!ignore) {
+          setEvents(data);
+          setError("");
+        }
+      } catch (err) {
+        console.error(err);
 
-      if (!ignore) {
-        setError(
-          "Unable to load events. Please make sure the backend server is running."
-        );
+        if (!ignore) {
+          setError(
+            "Unable to load events. Please make sure the backend server is running."
+          );
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
       }
-    } finally {
-      if (!ignore) {
-        setLoading(false);
-      }
-    }
+    };
+
+    fetchEvents();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  // =========================
+  // LOGOUT
+  // =========================
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("admin");
+
+    navigate("/admin/login", { replace: true });
   };
 
-  fetchEvents();
-
-  return () => {
-    ignore = true;
-  };
-}, []);
+  // =========================
+  // HANDLE INPUT CHANGE
+  // =========================
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -85,6 +107,9 @@ const AdminEvents = () => {
     }));
   };
 
+  // =========================
+  // BUILD EVENT DATA
+  // =========================
   const buildEventData = () => {
     return {
       title: {
@@ -115,11 +140,17 @@ const AdminEvents = () => {
     };
   };
 
+  // =========================
+  // RESET FORM
+  // =========================
   const resetForm = () => {
     setFormData(initialFormData);
     setEditingEventId(null);
   };
 
+  // =========================
+  // CREATE / UPDATE EVENT
+  // =========================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -169,6 +200,9 @@ const AdminEvents = () => {
     }
   };
 
+  // =========================
+  // EDIT EVENT
+  // =========================
   const handleEdit = (event) => {
     setEditingEventId(event._id);
 
@@ -200,6 +234,9 @@ const AdminEvents = () => {
     });
   };
 
+  // =========================
+  // DELETE EVENT
+  // =========================
   const handleDeleteEvent = async (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this event?"
@@ -231,34 +268,54 @@ const AdminEvents = () => {
     <main className="min-h-screen bg-[#fffdf8] px-6 py-12 md:px-10 lg:px-16">
       <div className="mx-auto max-w-7xl">
 
-        {/* Header */}
-        <div className="mb-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#b87821]">
-            Rangadarshana
-          </p>
+        {/* =========================
+            HEADER
+        ========================= */}
+        <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
 
-          <h1 className="mt-3 font-serif text-4xl font-bold text-[#18213b] md:text-5xl">
-            Event Management
-          </h1>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#b87821]">
+              Rangadarshana
+            </p>
 
-          <p className="mt-4 max-w-2xl leading-7 text-[#596176]">
-            Create and manage upcoming theatre events, performance details
-            and booking information.
-          </p>
+            <h1 className="mt-3 font-serif text-4xl font-bold text-[#18213b] md:text-5xl">
+              Event Management
+            </h1>
+
+            <p className="mt-4 max-w-2xl leading-7 text-[#596176]">
+              Create and manage upcoming theatre events, performance
+              details and booking information.
+            </p>
+          </div>
+
+          {/* Logout */}
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#a34732] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#7f3424] hover:shadow-md"
+          >
+            <LogOut size={17} />
+            Logout
+          </button>
         </div>
 
-        {/* Error */}
+        {/* =========================
+            ERROR
+        ========================= */}
         {error && (
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm font-medium text-red-700">
             {error}
           </div>
         )}
 
-        {/* Create / Edit Event */}
+        {/* =========================
+            CREATE / EDIT EVENT
+        ========================= */}
         <section className="rounded-2xl border border-[#eadfce] bg-white p-6 shadow-sm md:p-8">
 
           {/* Form Header */}
           <div className="mb-7 flex items-center gap-3">
+
             <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#fff2d8] text-[#b87821]">
               {editingEventId ? (
                 <Pencil size={22} />
@@ -287,7 +344,9 @@ const AdminEvents = () => {
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
           >
 
-            {/* English Title */}
+            {/* =========================
+                ENGLISH TITLE
+            ========================= */}
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#30384e]">
                 Event Title — English
@@ -304,7 +363,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Kannada Title */}
+            {/* =========================
+                KANNADA TITLE
+            ========================= */}
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#30384e]">
                 Event Title — Kannada
@@ -321,7 +382,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* English Description */}
+            {/* =========================
+                ENGLISH DESCRIPTION
+            ========================= */}
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#30384e]">
                 Description — English
@@ -338,7 +401,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Kannada Description */}
+            {/* =========================
+                KANNADA DESCRIPTION
+            ========================= */}
             <div>
               <label className="mb-2 block text-sm font-semibold text-[#30384e]">
                 Description — Kannada
@@ -355,7 +420,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* English Location */}
+            {/* =========================
+                ENGLISH LOCATION
+            ========================= */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
                 <MapPin size={16} />
@@ -373,7 +440,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Kannada Location */}
+            {/* =========================
+                KANNADA LOCATION
+            ========================= */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
                 <MapPin size={16} />
@@ -391,7 +460,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* English Venue */}
+            {/* =========================
+                ENGLISH VENUE
+            ========================= */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
                 <Building2 size={16} />
@@ -409,7 +480,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Kannada Venue */}
+            {/* =========================
+                KANNADA VENUE
+            ========================= */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
                 <Building2 size={16} />
@@ -427,7 +500,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Date */}
+            {/* =========================
+                DATE
+            ========================= */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
                 <CalendarDays size={16} />
@@ -444,7 +519,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Time */}
+            {/* =========================
+                TIME
+            ========================= */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
                 <Clock3 size={16} />
@@ -461,10 +538,12 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Booking URL */}
+            {/* =========================
+                BOOKING URL
+            ========================= */}
             <div className="md:col-span-2">
               <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#30384e]">
-                <Link size={16} />
+                <LinkIcon size={16} />
                 Booking URL
               </label>
 
@@ -479,7 +558,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Image URL */}
+            {/* =========================
+                IMAGE URL
+            ========================= */}
             <div className="md:col-span-2">
               <label className="mb-2 block text-sm font-semibold text-[#30384e]">
                 Event Image URL
@@ -495,7 +576,9 @@ const AdminEvents = () => {
               />
             </div>
 
-            {/* Visibility */}
+            {/* =========================
+                VISIBILITY
+            ========================= */}
             <div className="md:col-span-2">
               <label className="flex cursor-pointer items-center gap-3">
                 <input
@@ -518,7 +601,9 @@ const AdminEvents = () => {
               </label>
             </div>
 
-            {/* Submit Buttons */}
+            {/* =========================
+                SUBMIT BUTTONS
+            ========================= */}
             <div className="flex flex-wrap gap-3 md:col-span-2">
 
               <button
@@ -557,8 +642,11 @@ const AdminEvents = () => {
           </form>
         </section>
 
-        {/* Manage Events */}
+        {/* =========================
+            MANAGE EVENTS
+        ========================= */}
         <section className="mt-10">
+
           <div className="mb-6">
             <h2 className="font-serif text-2xl font-bold text-[#18213b]">
               Manage Events
@@ -577,18 +665,22 @@ const AdminEvents = () => {
             </div>
           ) : events.length > 0 ? (
             <div className="space-y-4">
+
               {events.map((event) => (
                 <div
                   key={event._id}
                   className="flex flex-col gap-5 rounded-2xl border border-[#eadfce] bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between"
                 >
+
                   {/* Event Information */}
                   <div>
+
                     <h3 className="font-serif text-xl font-bold text-[#18213b]">
                       {event.title?.en}
                     </h3>
 
                     <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#596176]">
+
                       <span className="flex items-center gap-1">
                         <MapPin size={15} />
                         {event.location?.en}
@@ -608,10 +700,12 @@ const AdminEvents = () => {
                         <Clock3 size={15} />
                         {event.time}
                       </span>
+
                     </div>
 
                     {/* Visibility Status */}
                     <div className="mt-3">
+
                       {event.isVisible ? (
                         <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
                           <Eye size={14} />
@@ -623,6 +717,7 @@ const AdminEvents = () => {
                           Hidden from website
                         </span>
                       )}
+
                     </div>
                   </div>
 
@@ -650,9 +745,11 @@ const AdminEvents = () => {
                       <Trash2 size={17} />
                       Delete
                     </button>
+
                   </div>
                 </div>
               ))}
+
             </div>
           ) : (
             <div className="rounded-2xl border border-[#eadfce] bg-white px-6 py-14 text-center">

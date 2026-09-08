@@ -18,6 +18,7 @@ import AdminEvents from "../pages/Admin/Events/AdminEvents";
 import AdminLogin from "../pages/Admin/Login/AdminLogin";
 import ProtectedRoute from "./ProtectedRoute";
 import ForgotPassword from "../pages/Admin/ForgotPassword/ForgotPassword";
+import ResetPassword from "../pages/Admin/ResetPassword/ResetPassword";
 
 function AppRoutes() {
   return (
@@ -39,6 +40,7 @@ function AppRoutes() {
 
           <Route path="admin/login" element={<AdminLogin />} />
           <Route path="admin/forgot-password" element={<ForgotPassword />} />
+          <Route path="admin/reset-password/:token" element={<ResetPassword />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="admin/events" element={<AdminEvents />} />
