@@ -3,14 +3,18 @@ import bcrypt from "bcryptjs";
 import connectDB from "./config/db.js";
 import Admin from "./models/Admin.js";
 
-dotenv.config({ path: "./backend/.env" });
+dotenv.config();
 
 const createAdmin = async () => {
   try {
     await connectDB();
 
-    const email = "rangadarshana.karnataka@gmail.com";
-    const password = "Adminrangadarshana@1234";
+    const email = process.env.ADMIN_EMAIL;
+    const password = process.env.ADMIN_PASSWORD;
+
+    if (!email || !password) {
+      throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be configured");
+    }
 
     const existingAdmin = await Admin.findOne({ email });
 
